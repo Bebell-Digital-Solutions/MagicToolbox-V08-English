@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Toolbox - Herramientas Digitales</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    
+    
+
+    
+        @property --rotate {
+          syntax: '<number>';
+          inherits: true;
+          initial-value: 0;
+        }
+
+        @property --delayed-rotate {
+          syntax: '<number>';
+          inherits: true;
+          initial-value: 0;
+        }
+
+        @keyframes scrollAnim {
+            to {
+                --rotate: 1;
+                --delayed-rotate: 1;
+            }
+        }
+
+        
+
+        :root {
+          --circle-size: 30vmin;
+          --spacing: 3vmin;
+          --font-size: 2.3vmin;
+          --ease-speed: 50ms;
+          --logo-size: 18vmin;
+        }
+
+        
+
+        body {
+            height: 1080vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: var(--font-size);
+            font-weight: 500;
+            background-color: #000000;
+            color: #ffffff;
+            animation: scrollAnim linear;
+            animation-timeline: scroll(nearest block);
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23ebff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>'), auto;
+        }
+
+        
+        
+        
+  body::after {
+  content: "Desliza hacia abajo para navegar";
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: #ebff00;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  animation: fadeOut 3s forwards 5s;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            display: none;
+        }
+        
+        .popup-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .popup-content {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 10000;
+            background: #8B3EFF;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(235, 255, 0, 0.7);
+        }
+
+        .close-popup:hover {
+            background: #ebff00;
+            color: #000;
+        }
+
+
+        
+        /* Bigger cursor on hover */
+        a:hover, .logo-container:hover {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="%23ebff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6" fill="%23ebff00"/></svg>'), auto;
+        }
+
+
+        
+        .logo-container {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: var(--logo-size);
+            height: var(--logo-size);
+            border-radius: 50%;
+            background: transparent;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .logo-container a {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        
+        
+        /* Homepage tooltip */
+        .logo-container a::after {
+            content: 'Magic Toolbox';
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 08px;
+            color: #000;
+            background-color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        
+
+        .logo-container:hover a::after {
+            opacity: 1;
+        }
+
+        .logo-container img {
+            width: 140%;
+            height: auto;
+            object-fit: contain;
+        }
+        
+        
+        
+        // Add this to your CSS for smoother animation:
+:root {
+    --ease-speed: 50ms; // Reduced from 50ms for faster letter movement
+}
+        
+        
+        
+        
+        /* Reduce the transition delay increment between letters */
+li span:nth-child(n) {
+    transition: --delayed-rotate calc(var(--ease-speed, 10ms) * 0.5) ease-out;
+}
+        
+        
+        
+        
+        
+        
+        
+        ul {
+          position: fixed;
+          left: 50%;
+          top: 50%;
+          translate: -50% -50%;
+          display: block;
+          width: var(--circle-size);
+          height: var(--circle-size);
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          border-radius: 50%;
+          transform: rotate(calc(var(--rotate) * 360deg));
+        }
+
+        li {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          line-height: 0;
+          transform-origin: 0 0;
+          text-wrap: nowrap;
+        }
+
+        li:nth-child(1) { rotate: 0deg; }
+        li:nth-child(2) { rotate: 15.65deg; }
+        li:nth-child(3) { rotate: 31.3deg; }
+        li:nth-child(4) { rotate: 46.95deg; }
+        li:nth-child(5) { rotate: 62.6deg; }
+        li:nth-child(6) { rotate: 78.26deg; }
+        li:nth-child(7) { rotate: 93.91deg; }
+        li:nth-child(8) { rotate: 109.56deg; }
+        li:nth-child(9) { rotate: 125.21deg; }
+        li:nth-child(10) { rotate: 140.86deg; }
+        li:nth-child(11) { rotate: 156.52deg; }
+        li:nth-child(12) { rotate: 172.17deg; }
+        li:nth-child(13) { rotate: 187.82deg; }
+        li:nth-child(14) { rotate: 203.47deg; }
+        li:nth-child(15) { rotate: 219.13deg; }
+        li:nth-child(16) { rotate: 234.78deg; }
+        li:nth-child(17) { rotate: 250.43deg; }
+        li:nth-child(18) { rotate: 266.08deg; }
+        li:nth-child(19) { rotate: 281.73deg; }
+        li:nth-child(20) { rotate: 297.39deg; }
+        li:nth-child(21) { rotate: 313.04deg; }
+        li:nth-child(22) { rotate: 328.69deg; }
+        li:nth-child(23) { rotate: 344.34deg; }
+        li:nth-child(24) { rotate: 359.99deg; }
+        li:nth-child(25) { rotate: 375.64deg; }
+        li:nth-child(26) { rotate: 391.29deg; }
+        li:nth-child(27) { rotate: 406.94deg; }
+        li:nth-child(28) { rotate: 422.59deg; }
+
+
+        li a {
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        li a:hover {
+            color: #ebff00;
+            text-shadow: 0 1 18px rgba(235, 255, 0, 0.4);
+        }
+        
+        
+        
+        
+
+        li span {
+          --rotate-velocity: calc(var(--rotate) - var(--delayed-rotate));
+          --rotate-spacing: calc(var(--spacing) * -4 * var(--rotate-velocity));
+          --x: calc(var(--circle-size) / 2 + var(--rotate-spacing));
+          --y: calc(10px * var(--rotate-velocity));
+          --r: calc(90deg * var(--rotate-velocity));
+
+          display: inline-block;
+          transform: translate(var(--x), var(--y)) rotate(var(--r, 0deg));
+        }
+        
+        
+        
+        
+
+        li span:nth-child(1) {
+            --y: calc((1 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 0) ease-out;
+        }
+        li span:nth-child(2) {
+            --y: calc((2 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 1) ease-out;
+        }
+        li span:nth-child(3) {
+            --y: calc((3 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 2) ease-out;
+        }
+        li span:nth-child(4) {
+            --y: calc((4 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 3) ease-out;
+        }
+        li span:nth-child(5) {
+            --y: calc((5 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 4) ease-out;
+        }
+        li span:nth-child(6) {
+            --y: calc((6 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 5) ease-out;
+        }
+        li span:nth-child(7) {
+            --y: calc((7 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 6) ease-out;
+        }
+        li span:nth-child(8) {
+            --y: calc((8 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 7) ease-out;
+        }
+        li span:nth-child(9) {
+            --y: calc((9 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 8) ease-out;
+        }
+        li span:nth-child(10) {
+            --y: calc((10 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 9) ease-out;
+        }
+        li span:nth-child(11) {
+            --y: calc((11 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 10) ease-out;
+        }
+        li span:nth-child(12) {
+            --y: calc((12 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 11) ease-out;
+        }
+        li span:nth-child(13) {
+            --y: calc((13 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 12) ease-out;
+        }
+        li span:nth-child(14) {
+            --y: calc((14 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 13) ease-out;
+        }
+        li span:nth-child(15) {
+            --y: calc((15 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 14) ease-out;
+        }
+        li span:nth-child(16) {
+            --y: calc((16 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 15) ease-out;
+        }
+        li span:nth-child(17) {
+            --y: calc((17 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 16) ease-out;
+        }
+        li span:nth-child(18) {
+            --y: calc((18 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 17) ease-out;
+        }
+        li span:nth-child(19) {
+            --y: calc((19 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 18) ease-out;
+        }
+        li span:nth-child(20) {
+            --y: calc((20 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 19) ease-out;
+        }
+        li span:nth-child(21) {
+            --y: calc((21 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 20) ease-out;
+        }
+        li span:nth-child(22) {
+            --y: calc((22 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 21) ease-out;
+        }
+        li span:nth-child(23) {
+            --y: calc((23 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 22) ease-out;
+        }
+        li span:nth-child(24) {
+            --y: calc((24 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 23) ease-out;
+        }
+        li span:nth-child(25) {
+            --y: calc((25 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 24) ease-out;
+        }
+        li span:nth-child(26) {
+            --y: calc((26 * -20px) * var(--rotate-velocity));
+            transform-origin: var(--x) 0;
+            transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 25) ease-out;
+        }
+       li span:nth-child(27) {
+    --y: calc((26 * -20px) * var(--rotate-velocity)); /* Corrected from 27 to 26 */
+    transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 26) ease-out;
+}
+li span:nth-child(28) {
+    --y: calc((27 * -20px) * var(--rotate-velocity));
+    transition: --delayed-rotate calc(var(--ease-speed, 100ms) * 27) ease-out;
+}
+
+
+
+
+
+
+        em {
+          display: block;
+          margin: 4px;
+          text-align: center;
+          font-style: normal;
+          font-size: small;
+          color: white;
+        }
+
+        @supports (animation-timeline: scroll()) {
+            em {
+                display: none;
+            }
+        }
+        
+        
+        
+    /* Add this to your parent CSS */
+iframe {
+  pointer-events: none; /* Allows scroll events to reach parent */
+}    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- Audio element for click sound -->
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2125/2125-preview.mp3" preload="auto"></audio>
+    <audio id="tickSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2089/2089-preview.mp3" type="audio/mpeg">
+    </audio>
+    
+    
+    
+    
+    
+    <div class="logo-container">
+        <a href="https://magictoolbox.net" aria-label="Magic Toolbox Home" onclick="playClickSound()" target="_blank">
+            <img src="https://bucket.mlcdn.com/a/3336/3336910/images/4750de8f08e2d68764dd9c049b523a66818f0d64.png" alt="Magic Toolbox Logo">
+        </a>
+    </div>
+    
+    <ul>
+       <ul>
+         
+  <li><a href="https://en.magictoolbox.net/organization" onclick="playClickSound()"><span>O</span><span>r</span><span>g</span><span>a</span><span>n</span><span>i</span><span>z</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span> <span>&</span> <span>P</span><span>l</span><span>a</span><span>n</span><span>n</span><span>i</span><span>n</span><span>g</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/productivity" onclick="playClickSound()"><span>P</span><span>r</span><span>o</span><span>d</span><span>u</span><span>c</span><span>t</span><span>i</span><span>v</span><span>i</span><span>t</span><span>y</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/automation" onclick="playClickSound()"><span>A</span><span>u</span><span>t</span><span>o</span><span>m</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/administration" onclick="playClickSound()"><span>A</span><span>d</span><span>m</span><span>i</span><span>n</span><span>i</span><span>s</span><span>t</span><span>r</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/research-data" onclick="playClickSound()"><span>R</span><span>e</span><span>s</span><span>e</span><span>a</span><span>r</span><span>c</span><span>h</span> <span>&</span> <span>D</span><span>a</span><span>t</span><span>a</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/project-management" onclick="playClickSound()"><span>P</span><span>r</span><span>o</span><span>j</span><span>e</span><span>c</span><span>t</span> <span>M</span><span>a</span><span>n</span><span>a</span><span>g</span><span>e</span><span>m</span><span>e</span><span>n</span><span>t</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/communication" onclick="playClickSound()"><span>C</span><span>o</span><span>m</span><span>m</span><span>u</span><span>n</span><span>i</span><span>c</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/collaboration" onclick="playClickSound()"><span>C</span><span>o</span><span>l</span><span>l</span><span>a</span><span>b</span><span>o</span><span>r</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/graphic-design" onclick="playClickSound()"><span>G</span><span>r</span><span>a</span><span>p</span><span>h</span><span>i</span><span>c</span> <span>D</span><span>e</span><span>s</span><span>i</span><span>g</span><span>n</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/audio-video" onclick="playClickSound()"><span>A</span><span>u</span><span>d</span><span>i</span><span>o</span> <span>&</span> <span>V</span><span>i</span><span>d</span><span>e</span><span>o</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/writing-copywriting" onclick="playClickSound()"><span>W</span><span>r</span><span>i</span><span>t</span><span>i</span><span>n</span><span>g</span> <span>&</span> <span>C</span><span>o</span><span>p</span><span>y</span><span>w</span><span>r</span><span>i</span><span>t</span><span>i</span><span>n</span><span>g</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/seo-analytics" onclick="playClickSound()"><span>S</span><span>E</span><span>O</span> <span>&</span> <span>A</span><span>n</span><span>a</span><span>l</span><span>y</span><span>t</span><span>i</span><span>c</span><span>s</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/advertising" onclick="playClickSound()"><span>A</span><span>d</span><span>v</span><span>e</span><span>r</span><span>t</span><span>i</span><span>s</span><span>i</span><span>n</span><span>g</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/social-media" onclick="playClickSound()"><span>S</span><span>o</span><span>c</span><span>i</span><span>a</span><span>l</span> <span>M</span><span>e</span><span>d</span><span>i</span><span>a</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/email-marketing" onclick="playClickSound()"><span>E</span><span>m</span><span>a</span><span>i</span><span>l</span> <span>M</span><span>a</span><span>r</span><span>k</span><span>e</span><span>t</span><span>i</span><span>n</span><span>g</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/sales-crm" onclick="playClickSound()"><span>S</span><span>a</span><span>l</span><span>e</span><span>s</span> <span>&</span> <span>C</span><span>R</span><span>M</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/ecommerce" onclick="playClickSound()"><span>E</span><span>c</span><span>o</span><span>m</span><span>m</span><span>e</span><span>r</span><span>c</span><span>e</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/finance-accounting" onclick="playClickSound()"><span>F</span><span>i</span><span>n</span><span>a</span><span>n</span><span>c</span><span>e</span> <span>&</span> <span>A</span><span>c</span><span>c</span><span>o</span><span>u</span><span>n</span><span>t</span><span>i</span><span>n</span><span>g</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/digital-marketing" onclick="playClickSound()"><span>D</span><span>i</span><span>g</span><span>i</span><span>t</span><span>a</span><span>l</span> <span>M</span><span>a</span><span>r</span><span>k</span><span>e</span><span>t</span><span>i</span><span>n</span><span>g</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/ai-creation" onclick="playClickSound()"><span>A</span><span>I</span> <span>C</span><span>r</span><span>e</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/freelancer-tools" onclick="playClickSound()"><span>F</span><span>r</span><span>e</span><span>e</span><span>l</span><span>a</span><span>n</span><span>c</span><span>e</span><span>r</span> <span>T</span><span>o</span><span>o</span><span>l</span><span>s</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/forms-booking" onclick="playClickSound()"><span>F</span><span>o</span><span>r</span><span>m</span><span>s</span> <span>&</span> <span>B</span><span>o</span><span>o</span><span>k</span><span>i</span><span>n</span><span>g</span></a></li>
+  
+  <li><a href="https://en.magictoolbox.net/other-categories" onclick="playClickSound()"><span>O</span><span>t</span><span>h</span><span>e</span><span>r</span> <span>C</span><span>a</span><span>t</span><span>e</span><span>g</span><span>o</span><span>r</span><span>i</span><span>e</span><span>s</span></a></li>
+</ul>
+      
+    </ul>
+    
+    
+    
+    
+    
+    
+    
+        <audio id="deepTickSound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU...[truncated]..." type="audio/wav">
+</audio>
+    
+    
+    
+    
+
+    <!-- Popup Container -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-container">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <iframe class="popup-content" id="popupContent" frameborder="0"></iframe>
+        </div>
+    </div>
+    
+    
+    
+    
+
+    <em>Tu navegador no soporta las últimas características de scroll ☹️</em>
+    
+    
+
+    
+    <script>
+    function playClickSound() {
+        const clickSound = document.getElementById('clickSound');
+        clickSound.currentTime = 0;
+        clickSound.play().catch(e => console.log("Click sound error:", e));
+    }
+    
+    // Add click sound to all links
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', playClickSound);
+    });
+
+    // Make all links open in new tab (except those already set to _blank)
+    document.querySelectorAll('a[href^="http"]:not([target="_blank"])').forEach(link => {
+        link.setAttribute('target', '_blank');
+    });
+
+    // Scroll sound effects
+    let lastScrollTime = 0;
+    let scrollTimeout;
+    const tickSound = document.getElementById('tickSound');
+    const scrollThreshold = 100;
+
+    function playTick() {
+        tickSound.currentTime = 0;
+        tickSound.volume = 0.3;
+        tickSound.play().catch(e => console.log("Tick sound error:", e));
+    }
+
+    window.addEventListener('wheel', (e) => {
+        const now = Date.now();
+        
+        if (now - lastScrollTime > scrollThreshold) {
+            playTick();
+            lastScrollTime = now;
+            
+            const speed = Math.abs(e.deltaY);
+            tickSound.volume = Math.min(0.1 + speed/1000, 0.8);
+        }
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => tickSound.pause(), 200);
+    });
+    
+    
+    // Play gentle sound on load (after user interaction)
+window.addEventListener('load', () => {
+  const tickSound = document.getElementById('tickSound');
+  tickSound.volume = 0.2; // Quieter initial sound
+  tickSound.play().catch(() => {
+    // Will fail until user interacts - that's normal
+  });
+});
+    
+    
+    
+
+</script>
+
+
+</body>
+</html>
